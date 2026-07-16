@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 def create_dim_product(df):
     """
     Create Product Dimension Table
@@ -13,7 +12,7 @@ def create_dim_product(df):
                     "Product ID",
                     "Product Name",
                     "Category",
-                    "Sub-Category"
+                    "Segment"
                 ]
             ]
             .drop_duplicates()
@@ -26,6 +25,13 @@ def create_dim_product(df):
             "Product Key",
             range(1, len(dim_product) + 1)
         )
+        # dim_product.columns = [
+        #     "Product_Key",
+        #     "Product_ID",
+        #     "Product_Name",
+        #     "Category",
+        #     "Sub_Category"
+        # ]
 
         return dim_product
     except Exception as e:
@@ -56,6 +62,13 @@ def create_dim_customer(df):
             "Customer Key",
             range(1, len(dim_customer) + 1)
         )
+
+        # dim_customer.columns = [
+        #     "Customer_Key",
+        #     "Customer_ID",
+        #     "Customer_Name",
+        #     "Segment"
+        # ]
 
         return dim_customer
     except Exception as e:
@@ -88,6 +101,15 @@ def create_dim_location(df):
             "Location Key",
             range(1, len(dim_location) + 1)
         )
+
+        # dim_location.columns = [
+        #     "Location_Key",
+        #     "Postal_Code",
+        #     "Country",
+        #     "Region",
+        #     "State",
+        #     "City"
+        # ]
 
         return dim_location
     except Exception as e:
@@ -168,9 +190,21 @@ def create_dim_time(df):
 
         dim_time.insert(
             0,
-            "Time_Key",
+            "Time Key",
             range(1, len(dim_time) + 1)
         )
+
+        # dim_time.columns = [
+        #     "Time_Key",
+        #     "Full_Date",
+        #     "Year",
+        #     "Quarter",
+        #     "Month",
+        #     "Month_Name",
+        #     "Day",
+        #     "Day_of_Week",
+        #     "Is_Weekend"
+        # ]
 
         return dim_time
 
@@ -232,7 +266,7 @@ def create_fact_sales(df,dim_product,dim_customer,dim_location,dim_time):
         order_time = dim_time.rename(
             columns={
                 "Full Date": "Order Date",
-                "Time_Key": "Order_Date_Key"
+                "Time Key": "Order_Date_Key" 
             }
         )
 
@@ -253,12 +287,12 @@ def create_fact_sales(df,dim_product,dim_customer,dim_location,dim_time):
         ship_time = dim_time.rename(
             columns={
                 "Full Date": "Ship Date",
-                "Time_Key": "Ship_Date_Key"
+                "Time Key": "Ship_Date_Key" 
             }
         )
 
         fact = fact.merge(
-            ship_time[
+            ship_time[ 
                 [
                     "Ship Date",
                     "Ship_Date_Key"
@@ -288,15 +322,30 @@ def create_fact_sales(df,dim_product,dim_customer,dim_location,dim_time):
             ]
         ].copy()
 
-        # Rename to match SQL table
-        fact_sales.rename(
-            columns={
-                "Row ID": "Row_ID",
-                "Order ID": "Order_ID",
-                "Ship Mode": "Ship_Mode"
-            },
-            inplace=True
-        )
+        # # Rename to match SQL table
+        # fact_sales.rename(
+        #     columns={
+        #         "Row ID": "Row_ID",
+        #         "Order ID": "Order_ID",
+        #         "Ship Mode": "Ship_Mode"
+        #     },
+        #     inplace=True
+        # )
+
+        fact_sales.columns = [
+            "Row ID",
+            "Customer Key",
+            "Product Key",
+            "Location Key",
+            "Order_Date_Key",
+            "Ship_Date_Key",
+            "Order ID",
+            "Ship Mode",
+            "Sales",
+            "Quantity",
+            "Discount",
+            "Profit"
+        ]
 
         return fact_sales
 

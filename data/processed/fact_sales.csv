@@ -1,4 +1,4 @@
-Row_ID,Customer Key,Product Key,Location Key,Order_Date_Key,Ship_Date_Key,Order_ID,Ship_Mode,Sales,Quantity,Discount,Profit
+Row ID,Customer Key,Product Key,Location Key,Order_Date_Key,Ship_Date_Key,Order ID,Ship Mode,Sales,Quantity,Discount,Profit
 1,1,1,1,1011,1014,CA-2016-152156,Second Class,261.96,2,0.0,41.9136
 2,1,2,1,1011,1014,CA-2016-152156,Second Class,731.94,3,0.0,219.582
 3,2,3,2,863,867,CA-2016-138688,Second Class,14.62,2,0.0,6.8714

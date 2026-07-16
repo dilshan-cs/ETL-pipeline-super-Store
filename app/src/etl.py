@@ -1,3 +1,4 @@
+from load import load_table
 import time
 from database import get_connection
 from extract import extract_data
@@ -76,14 +77,34 @@ def main():
         print(fact_sales.head()) 
 
         print("\nFact table created successfully!\n")
+        print("Data transforms successfully!\n")
 
+        
     except Exception as e:
         print(f"Transform failed: {e}")
         conn.close()
         return
 
 
+    try:
+        print("========== Loading into PostgreSQL ==========")
+
+        load_table(dim_product, "DIM PRODUCT")
+
+        load_table(dim_customer, "DIM CUSTOMER")
+
+        load_table(dim_location, "DIM LOCATION")
+
+        load_table(dim_time, "DIM TIME")
+
+        load_table(fact_sales, "FACT SALES")
+
+        print("Data loaded successfully!")
     
+    except Exception as e:
+        print(f"Load failed: {e}")
+        conn.close()
+        return
     
     conn.close()
     print("\n========== ETL Pipeline Finished ==========")    

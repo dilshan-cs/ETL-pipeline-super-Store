@@ -2,70 +2,70 @@
 -- Create Dimension Tables
 -- ==========================================
 
-CREATE TABLE IF NOT EXISTS DIM_CUSTOMER (
+CREATE TABLE IF NOT EXISTS "DIM CUSTOMER" (
 
-    Customer_Key SERIAL PRIMARY KEY,
+    "Customer Key" SERIAL PRIMARY KEY,
 
-    Customer_ID VARCHAR(20) NOT NULL,
+    "Customer ID" VARCHAR(20) NOT NULL,
 
-    Customer_Name VARCHAR(100) NOT NULL,
+    "Customer Name" VARCHAR(100) NOT NULL,
 
-    Segment VARCHAR(20) NOT NULL
-
-);
-
-
-CREATE TABLE IF NOT EXISTS DIM_PRODUCT (
-
-    Product_Key SERIAL PRIMARY KEY,
-
-    Product_ID VARCHAR(30) NOT NULL,
-
-    Product_Name VARCHAR(255) NOT NULL,
-
-    Category VARCHAR(50) NOT NULL,
-
-    Sub_Category VARCHAR(50) NOT NULL
+    "Segment" VARCHAR(20) NOT NULL
 
 );
 
 
-CREATE TABLE IF NOT EXISTS DIM_LOCATION (
+CREATE TABLE IF NOT EXISTS "DIM PRODUCT" (
 
-    Location_Key SERIAL PRIMARY KEY,
+    "Product Key" SERIAL PRIMARY KEY,
 
-    Postal_Code VARCHAR(20),
+    "Product ID" VARCHAR(30) NOT NULL,
 
-    Country VARCHAR(50),
+    "Product Name" VARCHAR(255) NOT NULL,
 
-    Region VARCHAR(50),
+    "Category" VARCHAR(50) NOT NULL,
 
-    State VARCHAR(50),
-
-    City VARCHAR(50)
+    "Sub-Category" VARCHAR(50) NOT NULL
 
 );
 
 
-CREATE TABLE IF NOT EXISTS DIM_TIME (
+CREATE TABLE IF NOT EXISTS "DIM LOCATION" (
 
-    Time_Key SERIAL PRIMARY KEY,
+    "Location Key" SERIAL PRIMARY KEY,
 
-    Full_Date DATE NOT NULL UNIQUE,
+    "Postal Code" VARCHAR(20),
 
-    Year INTEGER,
+    "Country" VARCHAR(50),
 
-    Quarter INTEGER,
+    "Region" VARCHAR(50),
 
-    Month INTEGER,
+    "State" VARCHAR(50),
 
-    Month_Name VARCHAR(20),
+    "City" VARCHAR(50)
 
-    Day INTEGER,
+);
 
-    Day_of_Week INTEGER,
 
-    Is_Weekend BOOLEAN
+CREATE TABLE IF NOT EXISTS "DIM TIME" (
+
+    "Time Key" SERIAL PRIMARY KEY,
+
+    "Full Date" DATE NOT NULL UNIQUE,
+
+    "Year" INTEGER,
+
+    "Quarter" INTEGER,
+
+    "Month" INTEGER,
+
+    "Month Name" VARCHAR(20),
+
+    "Day" INTEGER,
+
+    "Day of Week" INTEGER,
+
+    "Is Weekend" BOOLEAN
 
 );
 
@@ -74,50 +74,50 @@ CREATE TABLE IF NOT EXISTS DIM_TIME (
 -- Create Fact Table
 -- ==========================================
 
-CREATE TABLE IF NOT EXISTS FACT_SALES (
+CREATE TABLE IF NOT EXISTS "FACT SALES" (
 
-    Row_ID INTEGER PRIMARY KEY,
+    "Row ID" INTEGER PRIMARY KEY,
 
-    Customer_Key INTEGER NOT NULL,
+    "Customer Key" INTEGER NOT NULL,
 
-    Product_Key INTEGER NOT NULL,
+    "Product Key" INTEGER NOT NULL,
 
-    Location_Key INTEGER NOT NULL,
+    "Location Key" INTEGER NOT NULL,
 
-    Order_Date_Key INTEGER NOT NULL,
+    "Order_Date_Key" INTEGER NOT NULL,
 
-    Ship_Date_Key INTEGER NOT NULL,
+    "Ship_Date_Key" INTEGER NOT NULL,
 
-    Order_ID VARCHAR(30),
+    "Order ID" VARCHAR(30),
 
-    Ship_Mode VARCHAR(50),
+    "Ship Mode" VARCHAR(50),
 
-    Sales NUMERIC(12,2),
+    "Sales" NUMERIC(12,2),
 
-    Quantity INTEGER,
+    "Quantity" INTEGER,
 
-    Discount NUMERIC(5,2),
+    "Discount" NUMERIC(5,2),
 
-    Profit NUMERIC(12,2),
+    "Profit" NUMERIC(12,2),
 
     CONSTRAINT fk_customer
-        FOREIGN KEY (Customer_Key)
-        REFERENCES DIM_CUSTOMER(Customer_Key),
+        FOREIGN KEY ("Customer Key")
+        REFERENCES "DIM CUSTOMER"("Customer Key"),
 
     CONSTRAINT fk_product
-        FOREIGN KEY (Product_Key)
-        REFERENCES DIM_PRODUCT(Product_Key),
+        FOREIGN KEY ("Product Key")
+        REFERENCES "DIM PRODUCT"("Product Key"),
 
     CONSTRAINT fk_location
-        FOREIGN KEY (Location_Key)
-        REFERENCES DIM_LOCATION(Location_Key),
+        FOREIGN KEY ("Location Key")
+        REFERENCES "DIM LOCATION"("Location Key"),
 
     CONSTRAINT fk_order_time
         FOREIGN KEY (Order_Date_Key)
-        REFERENCES DIM_TIME(Time_Key),
+        REFERENCES "DIM TIME"("Time Key"),
 
     CONSTRAINT fk_ship_time
         FOREIGN KEY (Ship_Date_Key)
-        REFERENCES DIM_TIME(Time_Key)
+        REFERENCES "DIM TIME"("Time Key")
 
 );

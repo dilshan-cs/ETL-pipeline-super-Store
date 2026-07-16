@@ -1,4 +1,4 @@
-Time_Key,Full Date,Year,Quarter,Month,Month Name,Day,Day of Week,Is Weekend
+Time Key,Full Date,Year,Quarter,Month,Month Name,Day,Day of Week,Is Weekend
 1,2014-01-03,2014,1,1,January,3,4,False
 2,2014-01-04,2014,1,1,January,4,5,True
 3,2014-01-05,2014,1,1,January,5,6,True
