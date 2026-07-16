@@ -1,3 +1,4 @@
+import time
 from database import get_connection
 from extract import extract_data
 from transform import(
@@ -13,10 +14,18 @@ def main():
 
     print("========== ETL Pipeline Started ==========")
 
+    conn = None
+    for i in range(10):
+        conn = get_connection()
 
-    connection = get_connection()
+        if conn:
+            print("Connected!")
+            break
 
-    if connection is None:
+        print("Waiting for PostgreSQL...")
+        time.sleep(3)
+
+    if conn is None:
         print("Database connection failed.")
         return
     print("Database connected successfully!\n")
@@ -25,7 +34,7 @@ def main():
 
     if df is None:
         print("Extract failed.")
-        connection.close()
+        conn.close()
         return
     print("Data extracted successfully!\n")
     print(df)
@@ -70,13 +79,13 @@ def main():
 
     except Exception as e:
         print(f"Transform failed: {e}")
-        connection.close()
+        conn.close()
         return
 
 
     
     
-    connection.close()
+    conn.close()
     print("\n========== ETL Pipeline Finished ==========")    
 
 if __name__ == "__main__":
