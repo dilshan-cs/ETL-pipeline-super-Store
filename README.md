@@ -155,6 +155,17 @@ SELECT COUNT(*) FROM "FACT SALES";
 
 \d "FACT SALES"
 ```
+## OLAP Queries
+
+```sql
+    ROLLUP with GROUPING()
+    GROUPING SETS
+    LAG() and Lead()
+    Running Total
+    DENSE_RANK()
+    Multi-dimensional Filter
+    
+```
 
 ---
 
