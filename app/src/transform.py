@@ -12,7 +12,7 @@ def create_dim_product(df):
                     "Product ID",
                     "Product Name",
                     "Category",
-                    "Segment"
+                    "Sub-Category"
                 ]
             ]
             .drop_duplicates()

@@ -113,11 +113,11 @@ CREATE TABLE IF NOT EXISTS "FACT SALES" (
         REFERENCES "DIM LOCATION"("Location Key"),
 
     CONSTRAINT fk_order_time
-        FOREIGN KEY (Order_Date_Key)
+        FOREIGN KEY ("Order_Date_Key")
         REFERENCES "DIM TIME"("Time Key"),
 
     CONSTRAINT fk_ship_time
-        FOREIGN KEY (Ship_Date_Key)
+        FOREIGN KEY ("Ship_Date_Key")
         REFERENCES "DIM TIME"("Time Key")
 
 );
